@@ -3,9 +3,9 @@ import "./header.css"
 const Header = () => {
     return (
         <ul>
-            <li><NavLink to="#home">Home</NavLink></li>
+            <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/users">Users</NavLink></li>
-            <li><NavLink to="/products">Products</NavLink></li>
+            <li><NavLink to="/Books">Books</NavLink></li>
         </ul>
 
     );
