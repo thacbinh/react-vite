@@ -1,7 +1,8 @@
 import axios from "axios";
 // Set config defaults when creating the instance
 const instance = axios.create({
-    baseURL: 'http://localhost:8080'
+    // baseURL: 'http://localhost:8080'
+    baseURL: import.meta.env.VITE_BACKEND_URL
 });
 // Alter defaults after instance has been created
 //   instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -22,6 +23,7 @@ instance.interceptors.response.use(function (response) {
 }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    if (error.response && error.response.data) return error.response.data;
     return Promise.reject(error);
 });
 export default instance;

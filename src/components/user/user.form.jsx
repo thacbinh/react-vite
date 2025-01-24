@@ -14,6 +14,11 @@ const UserForm = () => {
                 message: "Create user",
                 description: "Success"
             })
+        } else {
+            notification.error({
+                message: "Error create user",
+                description: JSON.stringify(res.message)
+            })
         }
         console.log(">>>>My data:", res.data.data)
 
