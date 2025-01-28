@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input, notification, Modal } from "antd";
 import { createUserAPI } from "../../services/api.service";
-const UpdateUserModal = () => {
+const UpdateUserModal = (props) => {
+    const [id, setId] = useState("");
     const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(true);
+
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate } = props;
+
+    //next dataUpdate != pre dataUpdate
+    useEffect(() => {
+        if (dataUpdate) {
+            setId(dataUpdate._id);
+            setFullName(dataUpdate.fullName);
+            setPhone(dataUpdate.phone);
+        }
+    }, [dataUpdate])
+
     const handleSubmitBtn = async () => {
         const res = await createUserAPI(fullName, email, password, phone);
         if (res.data) {
@@ -24,16 +34,16 @@ const UpdateUserModal = () => {
         }
     }
     const resetAndCloseModal = () => {
-        setIsModalOpen(false);
+        setIsModalUpdateOpen(false);
+        setId("");
         setFullName("");
-        setEmail("");
-        setPassword("");
         setPhone("");
+        setDataUpdate(null)
     }
     return (
         <Modal
             title="Update a User"
-            open={isModalOpen}
+            open={isModalUpdateOpen}
             onOk={() => handleSubmitBtn()}
             onCancel={() => resetAndCloseModal()}
             maskClosable={false}
@@ -41,24 +51,17 @@ const UpdateUserModal = () => {
         >
             <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
                 <div>
+                    <span>Id</span>
+                    <Input
+                        value={id}
+                        disabled
+                    />
+                </div>
+                <div>
                     <span>Full Name</span>
                     <Input
                         value={fullName}
                         onChange={(event) => { setFullName(event.target.value) }}
-                    />
-                </div>
-                <div>
-                    <span>Email</span>
-                    <Input
-                        value={email}
-                        onChange={(event) => { setEmail(event.target.value) }}
-                    />
-                </div>
-                <div>
-                    <span>Password</span>
-                    <Input.Password
-                        value={password}
-                        onChange={(event) => { setPassword(event.target.value) }}
                     />
                 </div>
                 <div>
