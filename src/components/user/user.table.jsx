@@ -3,10 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchAllUSerAPI } from '../../services/api.service';
 
 const UserTable = () => {
-    const [dataUser, setDataUser] = useState([
-        { _id: "eric", fullName: 25, email: "hn" },
-        { _id: "hoidanit", fullName: 25, email: "hcm" }
-    ]);
+    const [dataUser, setDataUser] = useState([]);
 
     useEffect(() => {
         console.log(">>> run render 111")
