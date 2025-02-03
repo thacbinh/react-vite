@@ -11,14 +11,14 @@ const UserPage = () => {
 
     useEffect(() => {
         loadAllUser();
-    }, []);
+    }, [current, pageSize]);
 
     const loadAllUser = async () => {
         const res = await fetchAllUSerAPI(current, pageSize);
         if (res.data) {
             setDataUser(res.data.result)
-            setCurrent(res.data.meta.current);
-            setPageSize(res.data.meta.pageSize);
+            // setCurrent(res.data.meta.current);
+            // setPageSize(res.data.meta.pageSize);
             setTotal(res.data.meta.total);
         }
     }
