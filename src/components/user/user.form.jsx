@@ -27,7 +27,6 @@ const UserForm = (props) => {
                 description: JSON.stringify(res.message)
             })
         }
-        console.log(">>>>My data:", res.data.data)
 
     }
 

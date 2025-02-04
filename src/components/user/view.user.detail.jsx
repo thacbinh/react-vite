@@ -28,9 +28,6 @@ const ViewUserDetail = (props) => {
 
     }
 
-    console.log(">>> check file: ", preview)
-    console.log(">>> check file: ", selectedFile)
-
     const handleUpdateUserAvatar = async () => {
         //step 1: upload file
         const resUpload = await handleUploadFile(selectedFile, "avatar");

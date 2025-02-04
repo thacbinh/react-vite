@@ -14,7 +14,6 @@ const LoginPage = () => {
 
     const onFinish = async (values) => {
         setLoading(true)
-        console.log(">>> check values: ", values)
         const res = await loginAPI(values.email, values.password);
         if (res.data) {
             message.success("Đăng nhập thành công");
@@ -71,7 +70,9 @@ const LoginPage = () => {
                                 },
                             ]}
                         >
-                            <Input.Password />
+                            <Input.Password onKeyDown={(event) => {
+                                if (event.key === 'Enter') form.submit()
+                            }} />
                         </Form.Item>
                         <Form.Item >
                             <div style={{
