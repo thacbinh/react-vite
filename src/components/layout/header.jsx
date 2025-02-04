@@ -1,9 +1,11 @@
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
-import { HomeOutlined, UserOutlined, BookOutlined, SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined, BookOutlined, AliwangwangOutlined, LoginOutlined } from '@ant-design/icons';
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 const Header = () => {
+    const { user } = useContext(AuthContext);
+
     const items = [
         {
             label: <Link to="/">Home</Link>,
@@ -20,27 +22,27 @@ const Header = () => {
             key: 'books',
             icon: <BookOutlined />,
         },
+        ...(!user.id ? [{
+            label: <Link to={"/login"}>Đăng nhập</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+        }] : []),
 
-        {
-            label: 'Cài đặt',
+        ...(user.id ? [{
+            label: `Welcome ${user.fullName}`,
             key: 'setting',
-            icon: <SettingOutlined />,
+            icon: <AliwangwangOutlined />,
             children: [
-                {
-                    label: <Link to={"/login"}>Đăng nhập</Link>,
-                    key: 'login',
-                },
                 {
                     label: 'Đăng xuất',
                     key: 'logout',
                 },
             ],
-        },
+        }] : []),
     ];
 
     const [current, setCurrent] = useState('home');
 
-    const { user } = useContext(AuthContext);
 
     console.log(">>>> user", user)
 
