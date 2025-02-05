@@ -1,12 +1,17 @@
-import { Button, Table } from "antd";
+import { Button, Popconfirm, Table } from "antd";
 import { useState } from "react";
 import ViewBookDetail from "./view.book.detail";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import CreateBookControl from "./create.book.control";
 
 const BookTable = (props) => {
     const { dataBook, current, pageSize, setCurrent, setPageSize, total } = props
 
     const [isBookOpen, setIsBookOpen] = useState(false);
     const [bookDetail, setBookDetail] = useState(null);
+    const [isCreateBookOpen, setIsCreateBookOpen] = useState(false);
+    const [bookCreate, setBookCreate] = useState(null);
+    const { loadAllBook } = props;
 
     const columns = [
         {
@@ -50,6 +55,32 @@ const BookTable = (props) => {
             title: 'Tác giả',
             dataIndex: 'author',
         },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <div style={{ display: "flex", gap: "20px" }}>
+                    <EditOutlined
+                        style={{ cursor: "pointer", color: "orange" }}
+                        onClick={() => {
+                            // setIsModalBookOpen(true);
+                            // setBookCreate(record)
+                        }}
+                    />
+                    {/* <Popconfirm
+                        title="Delete the user"
+                        description="Are you sure to delete this user?"
+                        onConfirm={() => confirmDelete(record._id)}
+                        okText="Yes"
+                        cancelText="No"
+                        placement='left'
+                    >
+                        <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    </Popconfirm> */}
+
+                </div>
+            ),
+        },
     ];
 
     const onChange = (pagination, filters, sorter, extra) => {
@@ -73,7 +104,7 @@ const BookTable = (props) => {
                 justifyContent: "space-between"
             }}>
                 <h3>Table Book</h3>
-                <Button type="primary">Create Book</Button>
+                <Button type="primary" onClick={() => { setIsCreateBookOpen(true) }}>Create Book</Button>
             </div>
             <Table
                 dataSource={dataBook}
@@ -95,6 +126,13 @@ const BookTable = (props) => {
                 setIsBookOpen={setIsBookOpen}
                 bookDetail={bookDetail}
                 setBookDetail={setBookDetail}
+            />
+            <CreateBookControl
+                isCreateBookOpen={isCreateBookOpen}
+                setIsCreateBookOpen={setIsCreateBookOpen}
+                bookCreate={bookCreate}
+                setBookCreate={setBookCreate}
+                loadAllBook={loadAllBook}
             />
         </>
     );
