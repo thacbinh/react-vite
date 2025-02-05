@@ -4,6 +4,8 @@ import ViewBookDetail from "./view.book.detail";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import CreateBookControl from "./create.book.control";
 import CreateBookUnControl from "./create.book.uncontrol";
+import UpdateBookControl from "./update.book.control";
+import UpdateBookUnControl from "./update.book.uncontrol";
 
 const BookTable = (props) => {
     const { dataBook, current, pageSize, setCurrent, setPageSize, total } = props
@@ -11,7 +13,8 @@ const BookTable = (props) => {
     const [isBookOpen, setIsBookOpen] = useState(false);
     const [bookDetail, setBookDetail] = useState(null);
     const [isCreateBookOpen, setIsCreateBookOpen] = useState(false);
-    const [bookCreate, setBookCreate] = useState(null);
+    const [isUpdateBookOpen, setIsUpdateBookOpen] = useState(false);
+    const [bookUpdate, setBookUpdate] = useState(null);
     const { loadAllBook } = props;
 
     const columns = [
@@ -64,8 +67,8 @@ const BookTable = (props) => {
                     <EditOutlined
                         style={{ cursor: "pointer", color: "orange" }}
                         onClick={() => {
-                            // setIsModalBookOpen(true);
-                            // setBookCreate(record)
+                            setIsUpdateBookOpen(true);
+                            setBookUpdate(record)
                         }}
                     />
                     {/* <Popconfirm
@@ -136,6 +139,20 @@ const BookTable = (props) => {
             <CreateBookUnControl
                 isCreateBookOpen={isCreateBookOpen}
                 setIsCreateBookOpen={setIsCreateBookOpen}
+                loadAllBook={loadAllBook}
+            />
+            {/* <UpdateBookControl
+                isUpdateBookOpen={isUpdateBookOpen}
+                setIsUpdateBookOpen={setIsUpdateBookOpen}
+                bookUpdate={bookUpdate}
+                setBookUpdate={setBookUpdate}
+                loadAllBook={loadAllBook}
+            /> */}
+            <UpdateBookUnControl
+                isUpdateBookOpen={isUpdateBookOpen}
+                setIsUpdateBookOpen={setIsUpdateBookOpen}
+                bookUpdate={bookUpdate}
+                setBookUpdate={setBookUpdate}
                 loadAllBook={loadAllBook}
             />
         </>
