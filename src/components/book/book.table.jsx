@@ -16,7 +16,7 @@ const BookTable = (props) => {
     const [isCreateBookOpen, setIsCreateBookOpen] = useState(false);
     const [isUpdateBookOpen, setIsUpdateBookOpen] = useState(false);
     const [bookUpdate, setBookUpdate] = useState(null);
-    const { loadAllBook } = props;
+    const { loadAllBook, loadingTable } = props;
 
     const confirmDelete = async (id) => {
         const res = await deleteBookAPI(id);
@@ -141,6 +141,7 @@ const BookTable = (props) => {
                     }
                 }
                 onChange={onChange}
+                loading={loadingTable}
             />
             <ViewBookDetail
                 isBookOpen={isBookOpen}
